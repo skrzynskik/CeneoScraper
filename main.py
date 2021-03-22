@@ -1,3 +1,3 @@
-# CeneoScrapperS13
-# Etap 1 - pobranie opinii o produkcie
-# Etap 1.1 - pobranie składowych
+import requests
+response = requests.get("https://www.ceneo.pl/32622086#tab=reviews")
+print(response.text)
