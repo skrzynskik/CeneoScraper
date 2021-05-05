@@ -29,13 +29,13 @@ components = {
 }
 
 productId = input("Podaj kod produktu: ")
-respons = requests.get("https://www.ceneo.pl/{}#tab=reviews".format(productId))
+response = requests.get("https://www.ceneo.pl/{}#tab=reviews".format(productId))
 page = 2
 opinionsList = []
 
-while respons:
+while response:
 
-    pageDOM = BeautifulSoup(respons.text, 'html.parser')
+    pageDOM = BeautifulSoup(response.text, 'html.parser')
 
     opinions = pageDOM.select("div.js_product-review")
 
@@ -45,13 +45,11 @@ while respons:
 
         opinionDict["opinionID"] = opinion["data-entry-id"]
 
-
-
         opinionsList.append(opinionDict)
 
-    respons = requests.get(
+    response = requests.get(
         "https://www.ceneo.pl/{}/opinie-".format(productId) + str(page), allow_redirects=False)
-    if respons.status_code == 200:
+    if response.status_code == 200:
         page += 1
     else:
         break
